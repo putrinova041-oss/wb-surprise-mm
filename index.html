@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎂 Happy Birthday Mama!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Patrick+Hand&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+    background: #f5e6e0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0; left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+  }
+  .slide.active { display: flex; }
+
+  /* ===== BACKGROUND PATTERNS ===== */
+  .bg-cat-pattern {
+    background: linear-gradient(135deg, #f5e6e0 0%, #f0d5cc 50%, #e8c9b8 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .bg-cat-pattern::before {
+    content: '🐾';
+    position: absolute;
+    font-size: 40px;
+    opacity: 0.08;
+    top: 20%; left: 10%;
+    animation: floatPaw 6s ease-in-out infinite;
+  }
+  .bg-cat-pattern::after {
+    content: '';
+    position: absolute;
+    font-size: 30px;
+    opacity: 0.1;
+    top: 10%; right: 15%;
+    animation: floatPaw 8s ease-in-out infinite reverse;
+  }
+  @keyframes floatPaw {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+  }
+
+  .bg-letter {
+    background: linear-gradient(135deg, #fdf2e9 0%, #f8e8d4 50%, #f5dcc8 100%);
+  }
+
+  /* ===== SLIDE 0: INTRO MOM ===== */
+  #slide-intro {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 100;
+  }
+  .intro-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    animation: fadeInOverlay 0.8s ease;
+  }
+  @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+
+  .intro-mom-container {
+    position: relative;
+    text-align: center;
+    animation: introBounce 1s ease-out;
+  }
+  @keyframes introBounce {
+    0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+    50% { transform: scale(1.1) rotate(3deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .intro-mom-container img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    object-fit: cover;
+  }
+  .intro-mom-container h2 {
+    color: #fff;
+    font-size: 28px;
+    margin-top: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    animation: introText 0.8s ease 0.5s both;
+  }
+  @keyframes introText { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .intro-mom-container p {
+    color: #ffd4e8;
+    font-size: 16px;
+    margin-top: 8px;
+    animation: introText 0.8s ease 0.8s both;
+  }
+
+  .btn-enter-intro {
+    margin-top: 25px;
+    padding: 12px 35px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    animation: introText 0.8s ease 1.1s both;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-enter-intro:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255,154,158,0.5);
+  }
+
+  /* ===== SLIDE 1-3: CUTSCENE ===== */
+  #slide-cutscene {
+    background: #000;
+    z-index: 90;
+  }
+  .cutscene-frame {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .cutscene-frame img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 15px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    animation: cutsceneFadeIn 0.5s ease;
+  }
+  @keyframes cutsceneFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+  .cutscene-white-flash {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #fff;
+    z-index: 300;
+    animation: whiteFlash 0.6s ease;
+  }
+  @keyframes whiteFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* ===== SLIDE 4: LOADING ===== */
+  #slide-loading {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc);
+    z-index: 80;
+  }
+  .loading-container {
+    text-align: center;
+  }
+  .loading-container h2 {
+    color: #8b6f5e;
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+  .loading-bar-outer {
+    width: 300px;
+    height: 20px;
+    background: #e0cfc5;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .loading-bar-inner {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ff9a9e);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    animation: loadingWalk 3s ease-in-out forwards, shimmer 1.5s linear infinite;
+  }
+  @keyframes loadingWalk {
+    0% { width: 0%; }
+    20% { width: 15%; }
+    40% { width: 35%; }
+    60% { width: 55%; }
+    80% { width: 80%; }
+    100% { width: 100%; }
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .loading-paw {
+    font-size: 30px;
+    margin-top: 15px;
+    animation: pawBounce 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes pawBounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+  .loading-text {
+    color: #a08478;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  /* ===== SLIDE 5: PASSWORD ===== */
+  #slide-password {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc);
+    z-index: 70;
+  }
+  .password-container {
+    text-align: center;
+    background: #fff;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    max-width: 400px;
+    width: 90%;
+  }
+  .password-container .cat-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+  }
+  .password-container h3 {
+    color: #8b6f5e;
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+  .password-inputs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  .password-inputs input {
+    width: 55px;
+    height: 60px;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Quicksand', sans-serif;
+    border: 2px solid #e0cfc5;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #fdf8f5;
+    color: #8b6f5e;
+  }
+  .password-inputs input:focus {
+    border-color: #ff9a9e;
+    box-shadow: 0 0 15px rgba(255,154,158,0.3);
+  }
+  .btn-enter-pw {
+    padding: 12px 40px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-enter-pw:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255,154,158,0.4);
+  }
+  .pw-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* ===== SLIDE 6: BASE UI ===== */
+  #slide-base {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 60;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+    position: relative;
+  }
+  .base-header {
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+  }
+  .base-header h1 {
+    color: #8b6f5e;
+    font-size: 24px;
+  }
+  .base-header p {
+    color: #a08478;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  /* Profile Card */
+  .profile-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 15px 20px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: calc(100% - 40px);
+    max-width: 500px;
+  }
+  .profile-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f0d5cc;
+  }
+  .profile-info h3 { color: #8b6f5e; font-size: 18px; }
+  .profile-info p { color: #a08478; font-size: 13px; margin-top: 4px; }
+
+  /* Birthday Wishes Section */
+  .wishes-section {
+    margin: 10px 20px;
+    width: calc(100% - 40px);
+    max-width: 500px;
+  }
+  .wishes-section h3 {
+    color: #8b6f5e;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .wish-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .wish-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 15px;
+    background: #fff;
+    border: 2px solid #f0d5cc;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+    font-family: 'Quicksand', sans-serif;
+  }
+  .wish-btn:hover {
+    border-color: #ff9a9e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,154,158,0.2);
+  }
+  .wish-btn .letter-icon { font-size: 35px; }
+  .wish-btn p { color: #8b6f5e; font-size: 13px; margin-top: 5px; font-weight: 600; }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 15px;
+    box-shadow: 0 -3px 20px rgba(0,0,0,0.05);
+    z-index: 50;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .nav-item.active {
+    background: #fff0f0;
+    border: 2px solid #ff9a9e;
+  }
+  .nav-item .nav-icon { font-size: 24px; }
+  .nav-item .nav-label {
+    font-size: 11px;
+    color: #8b6f5e;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .nav-item.active .nav-label { color: #ff9a9e; }
+
+  /* ===== SLIDE 7: LETTER POPUP ===== */
+  .letter-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 400;
+    animation: fadeInOverlay 0.5s ease;
+  }
+  .letter-overlay.show { display: flex; }
+
+  .letter-popup {
+    background: #fdf2e9;
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    border-radius: 20px;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    animation: letterPopIn 0.5s ease;
+  }
+  @keyframes letterPopIn {
+    from { transform: scale(0.7) rotate(-3deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .letter-close {
+    position: absolute;
+    top: 12px; right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #8b6f5e;
+    background: none;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+  .letter-close:hover { background: rgba(0,0,0,0.05); }
+  .letter-popup h3 {
+    color: #8b6f5e;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .letter-popup .letter-content {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    color: #6b5344;
+    line-height: 1.8;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* ===== SLIDE 8: GAME SLIDE ===== */
+  #slide-game {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 55;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  .game-container {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+  }
+  .game-container h2 {
+    color: #8b6f5e;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .cake-preview-game {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .cake-display {
+    position: relative;
+    width: 180px;
+    height: 200px;
+    margin: 0 auto;
+  }
+  .cake-layer {
+    position: absolute;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+  }
+  .cake-base {
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    height: 120px;
+    background: #e8c9b8;
+    border-radius: 15px 15px 20px 20px;
+  }
+  .cake-buttercream {
+    bottom: 100px;
+    left: 5px;
+    right: 5px;
+    height: 40px;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.5s ease;
+  }
+  .cake-ganache {
+    bottom: 130px;
+    left: 15px;
+    right: 15px;
+    height: 30px;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.5s ease;
+  }
+  .cake-topper {
+    bottom: 155px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    transition: all 0.5s ease;
+  }
+  .cake-candle {
+    bottom: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    transition: all 0.5s ease;
+  }
+  .cake-candle.flame-on::after {
+    content: '🔥';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    animation: flicker 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes flicker {
+    from { opacity: 1; transform: translateX(-50%) scale(1); }
+    to { opacity: 0.7; transform: translateX(-50%) scale(0.9); }
+  }
+  .cake-candle.flame-off::after { content: none; }
+
+  .btn-start-game {
+    padding: 14px 45px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-start-game:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255,154,158,0.4);
+  }
+
+  /* ===== SLIDE 9: GAME DECORATE ===== */
+  #slide-game-decorate {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 54;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+  .game-decorate-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 15px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .game-decorate-container h2 {
+    color: #8b6f5e;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .game-cake-display {
+    background: #fff;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+  }
+  .decoration-category {
+    background: #fff;
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  }
+  .decoration-category h4 {
+    color: #8b6f5e;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .deco-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .deco-option {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    border: 2px solid #e0cfc5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 24px;
+    background: #fdf8f5;
+  }
+  .deco-option:hover {
+    border-color: #ff9a9e;
+    transform: scale(1.05);
+  }
+  .deco-option.selected {
+    border-color: #ff9a9e;
+    background: #fff0f0;
+    box-shadow: 0 3px 10px rgba(255,154,158,0.3);
+  }
+  .deco-option.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .btn-confirm-deco {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.3s;
+  }
+  .btn-confirm-deco:hover { transform: scale(1.02); }
+  .btn-confirm-deco:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ===== SLIDE 10: FINAL CAKE ===== */
+  #slide-final-cake {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 53;
+  }
+  .final-cake-container {
+    text-align: center;
+    padding: 20px;
+  }
+  .final-cake-container h2 {
+    color: #8b6f5e;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .final-cake-display {
+    background: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    margin: 0 auto 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 350px;
+  }
+  .btn-make-wish {
+    padding: 14px 45px;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    border: none;
+    border-radius: 25px;
+    color: #8b6f5e;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-make-wish:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(168,237,234,0.5);
+  }
+
+  /* ===== SLIDE 11: MAKE A WISH ===== */
+  #slide-make-wish {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc);
+    z-index: 52;
+  }
+  .make-wish-container {
+    text-align: center;
+    background: #fff;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    max-width: 400px;
+    width: 90%;
+  }
+  .make-wish-container h2 {
+    color: #8b6f5e;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .make-wish-container .sparkles {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+  .wish-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 15px;
+    border: 2px solid #e0cfc5;
+    border-radius: 15px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    color: #8b6f5e;
+    outline: none;
+    resize: none;
+    transition: border-color 0.3s;
+    background: #fdf8f5;
+  }
+  .wish-input:focus {
+    border-color: #ff9a9e;
+  }
+  .btn-submit-wish {
+    margin-top: 20px;
+    padding: 12px 40px;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    border: none;
+    border-radius: 25px;
+    color: #8b6f5e;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .btn-submit-wish:hover { transform: scale(1.05); }
+
+  /* ===== SLIDE 12: BLOW CANDLE ===== */
+  #slide-blow-candle {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 51;
+  }
+  .blow-container {
+    text-align: center;
+    padding: 20px;
+  }
+  .blow-container h2 {
+    color: #8b6f5e;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .blow-cake-display {
+    background: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    margin: 0 auto 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 350px;
+  }
+  .btn-blow {
+    padding: 14px 45px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .btn-blow:hover { transform: scale(1.08); }
+
+  /* ===== SLIDE 13: FINAL CAKE RESULT ===== */
+  #slide-final-result {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 50;
+  }
+  .final-result-container {
+    text-align: center;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+  }
+  .final-result-container h2 {
+    color: #8b6f5e;
+    font-size: 26px;
+    margin-bottom: 5px;
+  }
+  .final-result-container .subtitle {
+    color: #a08478;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .final-cake-big {
+    background: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    margin: 0 auto 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-back-home {
+    padding: 12px 35px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .btn-back-home:hover { transform: scale(1.05); }
+
+  /* ===== SLIDE 14: PROFILE ===== */
+  #slide-profile {
+    background: linear-gradient(135deg, #f5e6e0, #f0d5cc, #e8c9b8);
+    z-index: 55;
+    flex-direction: column;
+    padding-top: 30px;
+  }
+  .profile-detail-container {
+    background: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    margin: 15px 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    max-width: 450px;
+    width: calc(100% - 40px);
+    text-align: center;
+  }
+  .profile-detail-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f0d5cc;
+    margin-bottom: 20px;
+  }
+  .profile-detail-container h2 {
+    color: #8b6f5e;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .profile-detail-list {
+    text-align: left;
+  }
+  .profile-detail-item {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0e5de;
+  }
+  .profile-detail-item:last-child { border-bottom: none; }
+  .profile-detail-item .label {
+    font-weight: 700;
+    color: #8b6f5e;
+    min-width: 140px;
+    font-size: 14px;
+  }
+  .profile-detail-item .value {
+    color: #a08478;
+    font-size: 14px;
+  }
+
+  /* ===== BLOW ANIMATION ===== */
+  .blow-animation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 500;
+    pointer-events: none;
+    display: none;
+  }
+  .blow-animation.active { display: block; }
+  .wind-particle {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    animation: windRise 1.5s ease-out forwards;
+  }
+  @keyframes windRise {
+    0% { bottom: -50px; opacity: 0.8; transform: scale(0.5); }
+    50% { opacity: 1; }
+    100% { bottom: 110vh; opacity: 0; transform: scale(2); }
+  }
+
+  /* ===== CONFETTI ===== */
+  .confetti-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 600;
+    overflow: hidden;
+  }
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: confettiFall 3s ease-in forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ===== UTILITY ===== */
+  .hidden { display: none !important; }
+  .fade-in { animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d4b8a8; border-radius: 3px; }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .password-inputs input { width: 48px; height: 55px; font-size: 20px; }
+    .profile-card { flex-direction: column; text-align: center; }
+    .intro-mom-container img { width: 180px; height: 180px; }
+  }
+
+  /* Cake colors */
+  .buttercream-pink { background: linear-gradient(180deg, #ffb6c1, #ffc8d6); }
+  .buttercream-blue { background: linear-gradient(180deg, #a8d8ea, #bde0f0); }
+  .buttercream-purple { background: linear-gradient(180deg, #d4a6e8, #e0b8f0); }
+  .buttercream-yellow { background: linear-gradient(180deg, #ffe08a, #ffeaa7); }
+  .buttercream-green { background: linear-gradient(180deg, #a8e6a3, #b8f0b3); }
+
+  .ganache-brown { background: linear-gradient(180deg, #5c3d2e, #6b4c3b); }
+  .ganache-pink { background: linear-gradient(180deg, #e8879b, #f0a0b0); }
+  .ganache-caramel { background: linear-gradient(180deg, #d4a056, #e0b068); }
+  .ganache-white { background: linear-gradient(180deg, #f5f0e8, #faf5ee); }
+  .ganache-matcha { background: linear-gradient(180deg, #7cb342, #8bc34a); }
+
+  /* Wish display on cake */
+  .wish-text-display {
+    font-family: 'Patrick Hand', cursive;
+    color: #8b6f5e;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 250px;
+    word-wrap: break-word;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SLIDE 0: INTRO MOM ===== -->
+<div id="slide-intro" class="slide bg-cat-pattern active">
+  <div class="intro-overlay">
+    <div class="intro-mom-container">
+      <img src="https://i.imgur.com/placeholder.png" alt="Mama" id="intro-mom-img"
+           onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 250 250%22><circle cx=%22125%22 cy=%22125%22 r=%22120%22 fill=%22%23f5e6e0%22/><text x=%22125%22 y=%22140%22 text-anchor=%22middle%22 font-size=%2280%22>👩</text></svg>'">
+      <h2>✨ Untuk Mama Tercinta ✨</h2>
+      <p>Sebuah kejutan spesial dari anak-anakmu 💕</p>
+      <button class="btn-enter-intro" onclick="startCutscene()">Buka Kejutan 💝</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 1-3: CUTSCENE ===== -->
+<div id="slide-cutscene" class="slide">
+  <div class="cutscene-frame" id="cutscene-frame"></div>
+</div>
+
+<!-- ===== SLIDE 4: LOADING ===== -->
+<div id="slide-loading" class="slide">
+  <div class="loading-container">
+    <h2> Memuat Kejutan...</h2>
+    <div class="loading-bar-outer">
+      <div class="loading-bar-inner" id="loading-bar"></div>
+    </div>
+    <div class="loading-paw">🐾</div>
+    <p class="loading-text">Sedang menyiapkan sesuatu yang spesial...</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: PASSWORD ===== -->
+<div id="slide-password" class="slide">
+  <div class="password-container">
+    <div class="cat-icon"></div>
+    <h3>Enter Your Birthday Year</h3>
+    <div class="password-inputs">
+      <input type="text" maxlength="1" id="pw1" oninput="moveNext(this, 'pw2')" onkeydown="moveBack(event, this, null)">
+      <input type="text" maxlength="1" id="pw2" oninput="moveNext(this, 'pw3')" onkeydown="moveBack(event, this, 'pw1')">
+      <input type="text" maxlength="1" id="pw3" oninput="moveNext(this, 'pw4')" onkeydown="moveBack(event, this, 'pw2')">
+      <input type="text" maxlength="1" id="pw4" oninput="" onkeydown="moveBack(event, this, 'pw3')">
+    </div>
+    <button class="btn-enter-pw" onclick="checkPassword()">ENTER 🐾</button>
+    <p class="pw-error" id="pw-error">❌ Tahun lahir salah! Coba lagi ya~</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: BASE UI ===== -->
+<div id="slide-base" class="slide bg-cat-pattern">
+  <div class="base-header">
+    <h1>🎂 Happy Birthday Mama!</h1>
+    <p>Sebuah kejutan dari anak-anakmu 💕</p>
+  </div>
+
+  <div class="profile-card">
+    <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%23f5e6e0%22/><circle cx=%2250%22 cy=%2245%22 r=%2225%22 fill=%22%23ffd4a8%22/><ellipse cx=%2242%22 cy=%2240%22 rx=%223%22 ry=%224%22 fill=%22%23333%22/><ellipse cx=%2258%22 cy=%2240%22 rx=%223%22 ry=%224%22 fill=%22%23333%22/><path d=%22M45 52 Q50 58 55 52%22 stroke=%22%23333%22 stroke-width=%222%22 fill=%22none%22/><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2235%22 rx=%2210%22 fill=%22%23f5d76e%22/></svg>" alt="Mama" id="base-mom-img">
+    <div class="profile-info">
+      <h3>👩 Asiani</h3>
+      <p> Date of Birth: 16 - 05 - 1975</p>
+      <p>⭐ Zodiac: Taurus</p>
+    </div>
+  </div>
+
+  <div class="wishes-section">
+    <h3>💌 B'day Wishes</h3>
+    <div class="wish-buttons">
+      <div class="wish-btn" onclick="openLetter('egy')">
+        <div class="letter-icon">💌</div>
+        <p>From Egy</p>
+      </div>
+      <div class="wish-btn" onclick="openLetter('nova')">
+        <div class="letter-icon">💌</div>
+        <p>From Nova</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item" id="nav-game" onclick="navigateTo('game')">
+      <span class="nav-icon">🎮</span>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item" id="nav-profile" onclick="navigateTo('profile')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LETTER OVERLAY ===== -->
+<div class="letter-overlay" id="letter-overlay">
+  <div class="letter-popup">
+    <button class="letter-close" onclick="closeLetter()">✕</button>
+    <h3 id="letter-title">💌 Surat Untuk Mama</h3>
+    <div class="letter-content" id="letter-content"></div>
+  </div>
+</div>
+
+<!-- ===== SLIDE GAME INTRO ===== -->
+<div id="slide-game" class="slide bg-cat-pattern">
+  <div class="game-container">
+    <h2>🎂 Hias Kue Ulang Tahun Mama!</h2>
+    <div class="cake-preview-game">
+      <div class="cake-display">
+        <div class="cake-layer cake-base" style="background: linear-gradient(180deg, #e8c9b8, #d4a898);"></div>
+        <div style="position:absolute;bottom:10px;width:100%;text-align:center;font-size:50px;"></div>
+      </div>
+    </div>
+    <button class="btn-start-game" onclick="startGame()">🎮 START</button>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item" id="nav-game-home" onclick="navigateTo('home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item active" id="nav-game-game" onclick="navigateTo('game')">
+      <span class="nav-icon">🎮</span>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item" id="nav-game-profile" onclick="navigateTo('profile')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE GAME DECORATE ===== -->
+<div id="slide-game-decorate" class="slide bg-cat-pattern">
+  <div class="game-decorate-container">
+    <h2>🎨 Hias Kue Mama!</h2>
+    <div class="game-cake-display" id="game-cake-display">
+      <div class="cake-display" id="game-cake-inner">
+        <div class="cake-layer cake-base" id="gc-base" style="background: linear-gradient(180deg, #e8c9b8, #d4a898);"></div>
+        <div class="cake-layer cake-buttercream hidden" id="gc-buttercream"></div>
+        <div class="cake-layer cake-ganache hidden" id="gc-ganache"></div>
+        <div class="cake-topper hidden" id="gc-topper"></div>
+        <div class="cake-candle hidden" id="gc-candle"></div>
+      </div>
+    </div>
+
+    <!-- Buttercream -->
+    <div class="decoration-category" id="deco-buttercream">
+      <h4>🧁 Buttercream</h4>
+      <div class="deco-options">
+        <div class="deco-option" onclick="selectDeco('buttercream','pink', this)" data-color="pink">🩷</div>
+        <div class="deco-option" onclick="selectDeco('buttercream','blue', this)" data-color="blue">💙</div>
+        <div class="deco-option" onclick="selectDeco('buttercream','purple', this)" data-color="purple">💜</div>
+        <div class="deco-option" onclick="selectDeco('buttercream','yellow', this)" data-color="yellow">💛</div>
+        <div class="deco-option" onclick="selectDeco('buttercream','green', this)" data-color="green">💚</div>
+      </div>
+    </div>
+
+    <!-- Ganache -->
+    <div class="decoration-category hidden" id="deco-ganache">
+      <h4>🍫 Ganache</h4>
+      <div class="deco-options">
+        <div class="deco-option" onclick="selectDeco('ganache','brown', this)" data-color="brown">🤎</div>
+        <div class="deco-option" onclick="selectDeco('ganache','pink', this)" data-color="pink">🩷</div>
+        <div class="deco-option" onclick="selectDeco('ganache','caramel', this)" data-color="caramel">🧡</div>
+        <div class="deco-option" onclick="selectDeco('ganache','white', this)" data-color="white">🤍</div>
+        <div class="deco-option" onclick="selectDeco('ganache','matcha', this)" data-color="matcha">💚</div>
+      </div>
+    </div>
+
+    <!-- Topper -->
+    <div class="decoration-category hidden" id="deco-topper">
+      <h4>⭐ Topper</h4>
+      <div class="deco-options">
+        <div class="deco-option" onclick="selectDeco('topper','happy', this)" data-color="happy"></div>
+        <div class="deco-option" onclick="selectDeco('topper','cat', this)" data-color="cat"></div>
+        <div class="deco-option" onclick="selectDeco('topper','balloon', this)" data-color="balloon"></div>
+        <div class="deco-option" onclick="selectDeco('topper','star', this)" data-color="star">⭐</div>
+        <div class="deco-option" onclick="selectDeco('topper','heart', this)" data-color="heart">💖</div>
+      </div>
+    </div>
+
+    <!-- Candle -->
+    <div class="decoration-category hidden" id="deco-candle">
+      <h4>🕯️ Candle</h4>
+      <div class="deco-options">
+        <div class="deco-option" onclick="selectDeco('candle','pink', this)" data-color="pink">🕯️</div>
+        <div class="deco-option" onclick="selectDeco('candle','blue', this)" data-color="blue">🕯️</div>
+        <div class="deco-option" onclick="selectDeco('candle','yellow', this)" data-color="yellow">🕯️</div>
+        <div class="deco-option" onclick="selectDeco('candle','purple', this)" data-color="purple">🕯️</div>
+        <div class="deco-option" onclick="selectDeco('candle','twist', this)" data-color="twist">🕯️</div>
+      </div>
+    </div>
+
+    <button class="btn-confirm-deco" id="btn-confirm-deco" disabled onclick="confirmDecorations()">✓ Selesai Menghias!</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE FINAL CAKE ===== -->
+<div id="slide-final-cake" class="slide bg-cat-pattern">
+  <div class="final-cake-container">
+    <h2>🎉 Kue Mama Sudah Jadi!</h2>
+    <div class="final-cake-display" id="final-cake-display"></div>
+    <button class="btn-make-wish" onclick="goToMakeWish()">✨ Make a Wish </button>
+  </div>
+</div>
+
+<!-- ===== SLIDE MAKE A WISH ===== -->
+<div id="slide-make-wish" class="slide">
+  <div class="make-wish-container">
+    <div class="sparkles">✨✨</div>
+    <h2>Make a Wish</h2>
+    <p style="color:#a08478;font-size:14px;margin-bottom:15px;">Tulis harapanmu untuk Mama...</p>
+    <textarea class="wish-input" id="wish-input" placeholder="Tulis harapanmu di sini..."></textarea>
+    <button class="btn-submit-wish" onclick="submitWish()">✓ Submit Wish</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE BLOW CANDLE ===== -->
+<div id="slide-blow-candle" class="slide bg-cat-pattern">
+  <div class="blow-container">
+    <h2>🕯️ Tiup Lilinnya!!!</h2>
+    <div class="blow-cake-display" id="blow-cake-display"></div>
+    <button class="btn-blow" onclick="blowCandle()"> Tiup Lilinnya!</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE FINAL RESULT ===== -->
+<div id="slide-final-result" class="slide bg-cat-pattern">
+  <div class="final-result-container">
+    <h2> Happy Birthday Mama!</h2>
+    <p class="subtitle">Semoga semua harapanmu terkabul 💕</p>
+    <div class="final-cake-big" id="final-result-display"></div>
+    <div class="wish-text-display" id="wish-text-display"></div>
+    <br>
+    <button class="btn-back-home" onclick="navigateTo('home')"> Kembali ke Menu</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE PROFILE ===== -->
+<div id="slide-profile" class="slide bg-cat-pattern">
+  <div class="profile-detail-container">
+    <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22><rect width=%22120%22 height=%22120%22 rx=%2260%22 fill=%22%23f5e6e0%22/><circle cx=%2260%22 cy=%2255%22 r=%2228%22 fill=%22%23ffd4a8%22/><ellipse cx=%2250%22 cy=%2248%22 rx=%223.5%22 ry=%224.5%22 fill=%22%23333%22/><ellipse cx=%2270%22 cy=%2248%22 rx=%223.5%22 ry=%224.5%22 fill=%22%23333%22/><path d=%22M54 64 Q60 70 66 64%22 stroke=%22%23333%22 stroke-width=%222.5%22 fill=%22none%22/><rect x=%2225%22 y=%2225%22 width=%2270%22 height=%2240%22 rx=%2212%22 fill=%22%23f5d76e%22/></svg>" alt="Mama">
+    <h2>👩 Profile Mama</h2>
+    <div class="profile-detail-list">
+      <div class="profile-detail-item">
+        <span class="label">Name</span>
+        <span class="value">Asiani</span>
+      </div>
+      <div class="profile-detail-item">
+        <span class="label">Date of Birth</span>
+        <span class="value">16 - 05 - 1975</span>
+      </div>
+      <div class="profile-detail-item">
+        <span class="label">Age</span>
+        <span class="value">51 y.o</span>
+      </div>
+      <div class="profile-detail-item">
+        <span class="label">Zodiac</span>
+        <span class="value">Taurus ♉</span>
+      </div>
+      <div class="profile-detail-item">
+        <span class="label">Personality</span>
+        <span class="value">Penyayang, Peduli, Keras Kepala</span>
+      </div>
+      <div class="profile-detail-item">
+        <span class="label">Her Fav. Food</span>
+        <span class="value">Ikan Bakar, Sayur Asem</span>
+      </div>
+      <div class="profile-detail-item">
+        <span class="label">Her Fav. Drink</span>
+        <span class="value">Es Campur, Es Buah</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item" id="nav-profile-home" onclick="navigateTo('home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item" id="nav-profile-game" onclick="navigateTo('game')">
+      <span class="nav-icon">🎮</span>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item active" id="nav-profile-profile" onclick="navigateTo('profile')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </div>
+  </div>
+</div>
+
+<!-- BLOW ANIMATION CONTAINER -->
+<div class="blow-animation" id="blow-animation"></div>
+
+<!-- CONFETTI CONTAINER -->
+<div class="confetti-container" id="confetti-container"></div>
+
+<script>
+// ===== GLOBAL STATE =====
+let currentSlide = 'intro';
+let gameSelections = {
+  buttercream: null,
+  ganache: null,
+  topper: null,
+  candle: null
+};
+let userWish = '';
+
+const buttercreamColors = {
+  pink: 'linear-gradient(180deg, #ffb6c1, #ffc8d6)',
+  blue: 'linear-gradient(180deg, #a8d8ea, #bde0f0)',
+  purple: 'linear-gradient(180deg, #d4a6e8, #e0b8f0)',
+  yellow: 'linear-gradient(180deg, #ffe08a, #ffeaa7)',
+  green: 'linear-gradient(180deg, #a8e6a3, #b8f0b3)'
+};
+
+const ganacheColors = {
+  brown: 'linear-gradient(180deg, #5c3d2e, #6b4c3b)',
+  pink: 'linear-gradient(180deg, #e8879b, #f0a0b0)',
+  caramel: 'linear-gradient(180deg, #d4a056, #e0b068)',
+  white: 'linear-gradient(180deg, #f5f0e8, #faf5ee)',
+  matcha: 'linear-gradient(180deg, #7cb342, #8bc34a)'
+};
+
+const topperEmojis = {
+  happy: '🎉',
+  cat: '🐱',
+  balloon: '🎈',
+  star: '⭐',
+  heart: ''
+};
+
+const candleEmojis = {
+  pink: '🕯️',
+  blue: '🕯️',
+  yellow: '🕯️',
+  purple: '️',
+  twist: '🕯️'
+};
+
+const candleFlameColors = {
+  pink: '#ff6b8a',
+  blue: '#4ecdc4',
+  yellow: '#ffe66d',
+  purple: '#a66cff',
+  twist: '#ff9a76'
+};
+
+// ===== SLIDE MANAGEMENT =====
+function showSlide(slideId) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + slideId).classList.add('active');
+  currentSlide = slideId;
+}
+
+// ===== INTRO =====
+function startCutscene() {
+  showSlide('cutscene');
+  playCutscene();
+}
+
+function playCutscene() {
+  const frame = document.getElementById('cutscene-frame');
+
+  // Scene 1: Cat at laptop
+  frame.innerHTML = `
+    <div style="text-align:center;">
+      <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 450%22>
+        <rect width=%22600%22 height=%22450%22 fill=%22%23f0d5cc%22/>
+        <rect x=%2250%22 y=%22200%22 width=%22500%22 height=%22150%22 rx=%2210%22 fill=%22%23c4956a%22/>
+        <rect x=%22200%22 y=%22150%22 width=%22200%22 height=%22130%22 rx=%228%22 fill=%22%23333%22/>
+        <rect x=%22210%22 y=%22160%22 width=%22180%22 height=%22100%22 rx=%224%22 fill=%22%23ffe0f0%22/>
+        <circle cx=%22300%22 cy=%22210%22 r=%2220%22 fill=%22%23fff%22/>
+        <ellipse cx=%22290%22 cy=%22205%22 rx=%223%22 ry=%224%22 fill=%22%23333%22/>
+        <ellipse cx=%22310%22 cy=%22205%22 rx=%223%22 ry=%224%22 fill=%22%23333%22/>
+        <path d=%22M295 215 Q300 220 305 215%22 stroke=%22%23333%22 stroke-width=%221.5%22 fill=%22none%22/>
+        <polygon points=%22285,195 280,180 295,192%22 fill=%22%23fff%22/>
+        <polygon points=%22315,195 320,180 305,192%22 fill=%22%23fff%22/>
+        <ellipse cx=%22250%22 cy=%22310%22 rx=%2230%22 ry=%2220%22 fill=%22%23f5d7a8%22/>
+        <ellipse cx=%22350%22 cy=%22310%22 rx=%2230%22 ry=%2220%22 fill=%22%23f5d7a8%22/>
+        <ellipse cx=%22300%22 cy=%22350%22 rx=%2240%22 ry=%2230%22 fill=%22%23f5d7a8%22/>
+        <rect x=%22100%22 y=%22100%22 width=%2280%22 height=%22120%22 rx=%225%22 fill=%22%23ff9a9e%22/>
+        <circle cx=%22400%22 cy=%22130%22 r=%2225%22 fill=%22%23ffe08a%22/>
+        <text x=%22300%22 y=%22430%22 text-anchor=%22middle%22 font-size=%2216%22 fill=%22%238b6f5e%22 font-family=%22sans-serif%22>🐾 Kucing bermain laptop... 🐾</text>
+      </svg>" alt="Cat at laptop" style="max-width:90vw;max-height:80vh;border-radius:15px;box-shadow:0 10px 50px rgba(0,0,0,0.5);">
+    </div>`;
+
+  setTimeout(() => {
+    // White flash transition
+    const flash = document.createElement('div');
+    flash.className = 'cutscene-white-flash';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 600);
+
+    setTimeout(() => {
+      // Scene 2: Cat shocked
+      frame.innerHTML = `
+        <div style="text-align:center;">
+          <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 450%22>
+            <rect width=%22600%22 height=%22450%22 fill=%22%23f0d5cc%22/>
+            <rect x=%2250%22 y=%22200%22 width=%22500%22 height=%22150%22 rx=%2210%22 fill=%22%23c4956a%22/>
+            <rect x=%22200%22 y=%22150%22 width=%22200%22 height=%22130%22 rx=%228%22 fill=%22%23333%22/>
+            <rect x=%22210%22 y=%22160%22 width=%22180%22 height=%22100%22 rx=%224%22 fill=%22%23fff0f5%22/>
+            <text x=%22300%22 y=%22215%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23ff9a9e%22 font-family=%22sans-serif%22>Enter your</text>
+            <text x=%22300%22 y=%22235%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23ff9a9e%22 font-family=%22sans-serif%22>birthday year</text>
+            <rect x=%22240%22 y=%22250%22 width=%22120%22 height=%2220%22 rx=%2210%22 fill=%22%23ff9a9e%22/>
+            <text x=%22300%22 y=%22264%22 text-anchor=%22middle%22 font-size=%2210%22 fill=%22%23fff%22 font-family=%22sans-serif%22>ENTER</text>
+            <ellipse cx=%22250%22 cy=%22310%22 rx=%2230%22 ry=%2220%22 fill=%22%23f5d7a8%22/>
+            <ellipse cx=%22350%22 cy=%22310%22 rx=%2230%22 ry=%2220%22 fill=%22%23f5d7a8%22/>
+            <ellipse cx=%22300%22 cy=%22350%22 rx=%2240%22 ry=%2230%22 fill=%22%23f5d7a8%22/>
+            <circle cx=%22300%22 cy=%22100%22 r=%2240%22 fill=%22%23f5d7a8%22/>
+            <ellipse cx=%22285%22 cy=%2292%22 rx=%228%22 ry=%2210%22 fill=%22%23333%22/>
+            <ellipse cx=%22315%22 cy=%2292%22 rx=%228%22 ry=%2210%22 fill=%22%23333%22/>
+            <ellipse cx=%22300%22 cy=%22115%22 rx=%228%22 ry=%2210%22 fill=%22%23e74c3c%22/>
+            <polygon points=%22270,70 260,50 285,65%22 fill=%22%23f5d7a8%22/>
+            <polygon points=%22330,70 340,50 315,65%22 fill=%22%23f5d7a8%22/>
+            <path d=%22M280 68 Q275 62 280 58%22 stroke=%22%23333%22 stroke-width=%222%22 fill=%22none%22/>
+            <path d=%22M320 68 Q325 62 320 58%22 stroke=%22%23333%22 stroke-width=%222%22 fill=%22none%22/>
+            <text x=%22350%22 y=%2260%22 font-size=%2225%22>✨</text>
+            <text x=%22300%22 y=%22430%22 text-anchor=%22middle%22 font-size=%2216%22 fill=%22%238b6f5e%22 font-family=%22sans-serif%22>🐾 Kucing kaget! 🐾</text>
+          </svg>" alt="Cat shocked" style="max-width:90vw;max-height:80vh;border-radius:15px;box-shadow:0 10px 50px rgba(0,0,0,0.5);">
+        </div>`;
+
+      setTimeout(() => {
+        const flash2 = document.createElement('div');
+        flash2.className = 'cutscene-white-flash';
+        document.body.appendChild(flash2);
+        setTimeout(() => flash2.remove(), 600);
+
+        setTimeout(() => {
+          // Scene 3: Cat smiling
+          frame.innerHTML = `
+            <div style="text-align:center;">
+              <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 450%22>
+                <rect width=%22600%22 height=%22450%22 fill=%22%23f0d5cc%22/>
+                <rect x=%2250%22 y=%22200%22 width=%22500%22 height=%22150%22 rx=%2210%22 fill=%22%23c4956a%22/>
+                <rect x=%22200%22 y=%22150%22 width=%22200%22 height=%22130%22 rx=%228%22 fill=%22%23333%22/>
+                <rect x=%22210%22 y=%22160%22 width=%22180%22 height=%22100%22 rx=%224%22 fill=%22%23e8f5e9%22/>
+                <text x=%22300%22 y=%22210%22 text-anchor=%22middle%22 font-size=%2220%22 fill=%22%234caf50%22 font-family=%22sans-serif%22>✅</text>
+                <text x=%22300%22 y=%22240%22 text-anchor=%22middle%22 font-size=%2212%22 fill=%22%234caf50%22 font-family=%22sans-serif%22>Access Granted!</text>
+                <ellipse cx=%22250%22 cy=%22310%22 rx=%2230%22 ry=%2220%22 fill=%22%23f5d7a8%22/>
+                <ellipse cx=%22350%22 cy=%22310%22 rx=%2230%22 ry=%2220%22 fill=%22%23f5d7a8%22/>
+                <ellipse cx=%22300%22 cy=%22350%22 rx=%2240%22 ry=%2230%22 fill=%22%23f5d7a8%22/>
+                <circle cx=%22300%22 cy=%22100%22 r=%2240%22 fill=%22%23f5d7a8%22/>
+                <ellipse cx=%22288%22 cy=%2292%22 rx=%225%22 ry=%226%22 fill=%22%23333%22/>
+                <ellipse cx=%22312%22 cy=%2292%22 rx=%225%22 ry=%226%22 fill=%22%23333%22/>
+                <path d=%22M290 110 Q300 120 310 110%22 stroke=%22%23333%22 stroke-width=%222%22 fill=%22none%22/>
+                <polygon points=%22270,68 262,52 284,65%22 fill=%22%23f5d7a8%22/>
+                <polygon points=%22330,68 338,52 316,65%22 fill=%22%23f5d7a8%22/>
+                <circle cx=%22278%22 cy=%22100%22 r=%225%22 fill=%22%23ff9a9e%22 opacity=%220.5%22/>
+                <circle cx=%22322%22 cy=%22100%22 r=%225%22 fill=%22%23ff9a9e%22 opacity=%220.5%22/>
+                <text x=%22300%22 y=%22430%22 text-anchor=%22middle%22 font-size=%2216%22 fill=%22%238b6f5e%22 font-family=%22sans-serif%22>🐾 Kucing senang! 😊🐾</text>
+              </svg>" alt="Cat happy" style="max-width:90vw;max-height:80vh;border-radius:15px;box-shadow:0 10px 50px rgba(0,0,0,0.5);">
+            </div>`;
+
+          setTimeout(() => {
+            // Go to loading
+            showSlide('loading');
+            startLoading();
+          }, 2000);
+        }, 1000);
+      }, 2500);
+    }, 1000);
+  }, 2500);
+}
+
+// ===== LOADING =====
+function startLoading() {
+  const bar = document.getElementById('loading-bar');
+  bar.style.animation = 'loadingWalk 3s ease-in-out forwards, shimmer 1.5s linear infinite';
+
+  setTimeout(() => {
+    showSlide('password');
+    document.getElementById('pw1').focus();
+  }, 3500);
+}
+
+// ===== PASSWORD =====
+function moveNext(current, nextId) {
+  if (current.value.length === 1 && nextId) {
+    document.getElementById(nextId).focus();
+  }
+}
+
+function moveBack(event, current, prevId) {
+  if (event.key === 'Backspace' && current.value === '' && prevId) {
+    document.getElementById(prevId).focus();
+  }
+}
+
+function checkPassword() {
+  const pw = document.getElementById('pw1').value +
+             document.getElementById('pw2').value +
+             document.getElementById('pw3').value +
+             document.getElementById('pw4').value;
+
+  if (pw === '1975') {
+    showSlide('base');
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('pw1').value = '';
+    document.getElementById('pw2').value = '';
+    document.getElementById('pw3').value = '';
+    document.getElementById('pw4').value = '';
+    document.getElementById('pw1').focus();
+    setTimeout(() => {
+      document.getElementById('pw-error').style.display = 'none';
+    }, 2000);
+  }
+}
+
+// ===== NAVIGATION =====
+function navigateTo(section) {
+  if (section === 'home') {
+    showSlide('base');
+  } else if (section === 'game') {
+    showSlide('game');
+  } else if (section === 'profile') {
+    showSlide('profile');
+  }
+  updateNav(section);
+}
+
+function updateNav(activeSection) {
+  // Reset all nav items
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+  if (activeSection === 'home') {
+    const el = document.getElementById('nav-home');
+    if (el) el.classList.add('active');
+  } else if (activeSection === 'game') {
+    const el = document.getElementById('nav-game');
+    if (el) el.classList.add('active');
+    const el2 = document.getElementById('nav-game-game');
+    if (el2) el2.classList.add('active');
+  } else if (activeSection === 'profile') {
+    const el = document.getElementById('nav-profile');
+    if (el) el.classList.add('active');
+    const el2 = document.getElementById('nav-profile-profile');
+    if (el2) el2.classList.add('active');
+  }
+}
+
+// ===== LETTERS =====
+function openLetter(from) {
+  const overlay = document.getElementById('letter-overlay');
+  const title = document.getElementById('letter-title');
+  const content = document.getElementById('letter-content');
+
+  if (from === 'egy') {
+    title.textContent = '💌 From Egy';
+    content.innerHTML = `
+      <p style="font-size:18px;margin-bottom:15px;">Happy birthday mamaa 🤍</p>
+      <p>Semoga mama panjang umur, sehat selalu, dan selalu diberi kebahagiaan serta rezeki yang lancar di setiap langkah mamaa.</p>
+      <br>
+      <p>Doakan ya maa semoga aku diberi kemudahan dalam bekerja, dilancarkan rezekinya, dipertemukan dengan jodoh yang baik dan tepat pada waktunya </p>
+      <br>
+      <p style="font-size:20px;">Aamiin. 🤍</p>
+      <br>
+      <p style="font-size:14px;color:#a08478;">— Dengan cinta, Egy 💕</p>
+    `;
+  } else {
+    title.textContent = '💌 From Nova';
+    content.innerHTML = `
+      <p style="font-size:18px;margin-bottom:15px;">Happy birthday mamaa 💞💞💟💟🫶🏻🫶</p>
+      <p>Semoga panjang umur sampai aku sukses dan sehat selaluu, semoga diberi rezeki dan kebahagiaan selalu menyertai.</p>
+      <br>
+      <p>Maaf kalau aku ada salah yang sengaja or tdk disengajaa.</p>
+      <br>
+      <p>Doakan ya maa tanggal 25 mei nanti aku lolos SNBT pil. 1 ya maa, aamiin.</p>
+      <br>
+      <p style="font-size:14px;color:#a08478;">— Dengan cinta, Nova 💕</p>
+    `;
+  }
+
+  overlay.classList.add('show');
+}
+
+function closeLetter() {
+  document.getElementById('letter-overlay').classList.remove('show');
+}
+
+// ===== GAME =====
+function startGame() {
+  gameSelections = { buttercream: null, ganache: null, topper: null, candle: null };
+
+  // Reset UI
+  document.getElementById('gc-buttercream').classList.add('hidden');
+  document.getElementById('gc-ganache').classList.add('hidden');
+  document.getElementById('gc-topper').classList.add('hidden');
+  document.getElementById('gc-candle').classList.add('hidden');
+
+  document.getElementById('deco-buttercream').classList.remove('hidden');
+  document.getElementById('deco-ganache').classList.add('hidden');
+  document.getElementById('deco-topper').classList.add('hidden');
+  document.getElementById('deco-candle').classList.add('hidden');
+
+  // Reset selections
+  document.querySelectorAll('.deco-option').forEach(opt => opt.classList.remove('selected', 'disabled'));
+
+  document.getElementById('btn-confirm-deco').disabled = true;
+
+  showSlide('game-decorate');
+}
+
+function selectDeco(category, color, element) {
+  gameSelections[category] = color;
+
+  // Remove selected from siblings
+  element.parentElement.querySelectorAll('.deco-option').forEach(opt => {
+    opt.classList.remove('selected');
+  });
+  element.classList.add('selected');
+
+  // Update cake display
+  updateCakePreview();
+
+  // Show next category
+  if (category === 'buttercream') {
+    document.getElementById('deco-ganache').classList.remove('hidden');
+  } else if (category === 'ganache') {
+    document.getElementById('deco-topper').classList.remove('hidden');
+  } else if (category === 'topper') {
+    document.getElementById('deco-candle').classList.remove('hidden');
+  }
+
+  // Check if all selected
+  if (gameSelections.buttercream && gameSelections.ganache && gameSelections.topper && gameSelections.candle) {
+    document.getElementById('btn-confirm-deco').disabled = false;
+  }
+}
+
+function updateCakePreview() {
+  const bc = document.getElementById('gc-buttercream');
+  const gn = document.getElementById('gc-ganache');
+  const tp = document.getElementById('gc-topper');
+  const cd = document.getElementById('gc-candle');
+
+  if (gameSelections.buttercream) {
+    bc.classList.remove('hidden');
+    bc.className = 'cake-layer cake-buttercream buttercream-' + gameSelections.buttercream;
+    bc.style.display = 'block';
+  } else {
+    bc.classList.add('hidden');
+    bc.style.display = 'none';
+  }
+
+  if (gameSelections.ganache) {
+    gn.classList.remove('hidden');
+    gn.className = 'cake-layer cake-ganache ganache-' + gameSelections.ganache;
+    gn.style.display = 'block';
+  } else {
+    gn.classList.add('hidden');
+    gn.style.display = 'none';
+  }
+
+  if (gameSelections.topper) {
+    tp.classList.remove('hidden');
+    tp.textContent = topperEmojis[gameSelections.topper];
+    tp.style.display = 'block';
+  } else {
+    tp.classList.add('hidden');
+    tp.style.display = 'none';
+  }
+
+  if (gameSelections.candle) {
+    cd.classList.remove('hidden');
+    cd.textContent = candleEmojis[gameSelections.candle];
+    cd.className = 'cake-candle flame-on';
+    cd.style.display = 'block';
+  } else {
+    cd.classList.add('hidden');
+    cd.style.display = 'none';
+  }
+}
+
+function confirmDecorations() {
+  // Build final cake HTML
+  const bcClass = gameSelections.buttercream;
+  const gnClass = gameSelections.ganache;
+  const topperEmoji = topperEmojis[gameSelections.topper];
+  const candleEmoji = candleEmojis[gameSelections.candle];
+  const flameColor = candleFlameColors[gameSelections.candle];
+
+  const finalCakeHTML = `
+    <div class="cake-display">
+      <div class="cake-layer cake-base" style="background: linear-gradient(180deg, #e8c9b8, #d4a898);"></div>
+      <div class="cake-layer cake-buttercream buttercream-${bcClass}" style="display:block;bottom:100px;left:5px;right:5px;height:40px;border-radius:10px 10px 0 0;"></div>
+      <div class="cake-layer cake-ganache ganache-${gnClass}" style="display:block;bottom:130px;left:15px;right:15px;height:30px;border-radius:10px 10px 0 0;"></div>
+      <div class="cake-topper" style="display:block;bottom:155px;">${topperEmoji}</div>
+      <div class="cake-candle flame-on" style="display:block;bottom:170px;position:relative;">${candleEmoji}<span style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:14px;animation:flicker 0.5s ease-in-out infinite alternate;">🔥</span></div>
+    </div>
+  `;
+
+  document.getElementById('final-cake-display').innerHTML = finalCakeHTML;
+  showSlide('final-cake');
+}
+
+// ===== MAKE A WISH =====
+function goToMakeWish() {
+  showSlide('make-wish');
+  document.getElementById('wish-input').value = '';
+  document.getElementById('wish-input').focus();
+}
+
+function submitWish() {
+  userWish = document.getElementById('wish-input').value.trim();
+  if (!userWish) userWish = 'Semoga mama sehat dan bahagia selalu! 💕';
+
+  // Build blow candle display
+  const bcClass = gameSelections.buttercream;
+  const gnClass = gameSelections.ganache;
+  const topperEmoji = topperEmojis[gameSelections.topper];
+  const candleEmoji = candleEmojis[gameSelections.candle];
+
+  const blowCakeHTML = `
+    <div class="cake-display">
+      <div class="cake-layer cake-base" style="background: linear-gradient(180deg, #e8c9b8, #d4a898);"></div>
+      <div class="cake-layer cake-buttercream buttercream-${bcClass}" style="display:block;bottom:100px;left:5px;right:5px;height:40px;border-radius:10px 10px 0 0;"></div>
+      <div class="cake-layer cake-ganache ganache-${gnClass}" style="display:block;bottom:130px;left:15px;right:15px;height:30px;border-radius:10px 10px 0 0;"></div>
+      <div class="cake-topper" style="display:block;bottom:155px;">${topperEmoji}</div>
+      <div class="cake-candle flame-on" id="blow-candle-el" style="display:block;bottom:170px;position:relative;">${candleEmoji}<span style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:14px;animation:flicker 0.5s ease-in-out infinite alternate;">🔥</span></div>
+    </div>
+  `;
+
+  document.getElementById('blow-cake-display').innerHTML = blowCakeHTML;
+  showSlide('blow-candle');
+}
+
+// ===== BLOW CANDLE =====
+function blowCandle() {
+  // Create wind particles
+  const blowAnim = document.getElementById('blow-animation');
+  blowAnim.classList.add('active');
+
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'wind-particle';
+    particle.style.left = (30 + Math.random() * 40) + '%';
+    particle.style.animationDelay = (Math.random() * 0.5) + 's';
+    particle.style.width = (15 + Math.random() * 20) + 'px';
+    particle.style.height = particle.style.width;
+    blowAnim.appendChild(particle);
+  }
+
+  // Extinguish candle
+  setTimeout(() => {
+    const candleEl = document.getElementById('blow-candle-el');
+    if (candleEl) {
+      candleEl.className = 'cake-candle flame-off';
+      candleEl.querySelector('span').remove();
+    }
+  }, 800);
+
+  // Transition to final
+  setTimeout(() => {
+    blowAnim.classList.remove('active');
+    blowAnim.innerHTML = '';
+
+    // Build final cake (no flame)
+    const bcClass = gameSelections.buttercream;
+    const gnClass = gameSelections.ganache;
+    const topperEmoji = topperEmojis[gameSelections.topper];
+    const candleEmoji = candleEmojis[gameSelections.candle];
+
+    const finalHTML = `
+      <div class="cake-display">
+        <div class="cake-layer cake-base" style="background: linear-gradient(180deg, #e8c9b8, #d4a898);"></div>
+        <div class="cake-layer cake-buttercream buttercream-${bcClass}" style="display:block;bottom:100px;left:5px;right:5px;height:40px;border-radius:10px 10px 0 0;"></div>
+        <div class="cake-layer cake-ganache ganache-${gnClass}" style="display:block;bottom:130px;left:15px;right:15px;height:30px;border-radius:10px 10px 0 0;"></div>
+        <div class="cake-topper" style="display:block;bottom:155px;">${topperEmoji}</div>
+        <div class="cake-candle flame-off" style="display:block;bottom:170px;">${candleEmoji}</div>
+      </div>
+    `;
+
+    document.getElementById('final-result-display').innerHTML = finalHTML;
+    document.getElementById('wish-text-display').textContent = `"${userWish}"`;
+
+    showSlide('final-result');
+
+    // Confetti!
+    launchConfetti();
+  }, 2000);
+}
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  const container = document.getElementById('confetti-container');
+  container.innerHTML = '';
+
+  const colors = ['#ff9a9e', '#fad0c4', '#a8edea', '#fed6e3', '#ffe08a', '#d4a6e8', '#a8e6a3', '#ff6b8a'];
+
+  for (let i = 0; i < 80; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDelay = (Math.random() * 2) + 's';
+    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+    confetti.style.width = (5 + Math.random() * 10) + 'px';
+    confetti.style.height = confetti.style.width;
+    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    container.appendChild(confetti);
+  }
+
+  setTimeout(() => {
+    container.innerHTML = '';
+  }, 5000);
+}
+
+// ===== ENTER KEY FOR PASSWORD =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const activeSlide = document.querySelector('.slide.active');
+    if (activeSlide && activeSlide.id === 'slide-password') {
+      checkPassword();
+    }
+  }
+});
+</script>
+</body>
+</html>
